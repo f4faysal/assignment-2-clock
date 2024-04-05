@@ -69,7 +69,15 @@ export default function App() {
     >
       <Text style={{
         fontSize : 25,
-        color :"#fff"
+        color :"#fff",
+        fontFamily : "Inter-regular"
+      }}>
+        habiba kutta
+      </Text>
+      <Text style={{
+        fontSize : 25,
+        color :"#fff",
+        fontFamily : "Inter-bold"
       }}>
         habiba
       </Text>
@@ -80,5 +88,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent : "center",
+    alignItems : "center"
   },
 });
