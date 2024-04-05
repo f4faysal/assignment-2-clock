@@ -14,6 +14,14 @@ export default function App() {
       >
         Faysal
       </Text>
+      <Text
+        style={{
+          fontSize: 22,
+          color: "white",
+        }}
+      >
+        Faysal
+      </Text>
     </ImageBackground>
   );
 }
