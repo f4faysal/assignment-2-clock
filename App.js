@@ -1,4 +1,17 @@
-import { ImageBackground, StyleSheet, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  View
+} from "react-native";
+
+import {
+  Inter_400Regular,
+  Inter_700Bold,
+  useFonts,
+} from "@expo-google-fonts/inter";
+import { useState } from "react";
 
 const RowView = ({ label, value }) => {
   return (
@@ -40,12 +53,26 @@ const RowView = ({ label, value }) => {
 };
 
 export default function App() {
+  let [fontsLoaded] = useFonts({
+    "Inter-regular": Inter_400Regular,
+    "Inter-bold": Inter_700Bold,
+  });
+  const [showMore, setShowMore] = useState(false);
+  if (!fontsLoaded) {
+    // return <AppLoading />;
+    return <ActivityIndicator />;
+  }
   return (
     <ImageBackground
       style={styles.container}
-      source={require("./assets/bacground.png")}
+      source={require("./assets/background.png")} // Corrected typo here
     >
-    
+      <Text style={{
+        fontSize : 25,
+        color :"#fff"
+      }}>
+        habiba
+      </Text>
     </ImageBackground>
   );
 }
