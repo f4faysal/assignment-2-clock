@@ -1,4 +1,4 @@
-import { ImageBackground, StyleSheet, Text } from "react-native";
+import { ImageBackground, StyleSheet } from "react-native";
 
 export default function App() {
   return (
@@ -6,38 +6,7 @@ export default function App() {
       style={styles.container}
       source={require("./assets/bacground.png")}
     >
-      <Text
-        style={{
-          fontSize: 22,
-          color: "white",
-        }}
-      >
-        Faysal
-      </Text>
-      <Text
-        style={{
-          fontSize: 22,
-          color: "white",
-        }}
-      >
-        Faysal
-      </Text>
-      <Text
-        style={{
-          fontSize: 22,
-          color: "white",
-        }}
-      >
-        Faysal
-      </Text>
-      <Text
-        style={{
-          fontSize: 22,
-          color: "white",
-        }}
-      >
-        Faysal
-      </Text>
+    
     </ImageBackground>
   );
 }
