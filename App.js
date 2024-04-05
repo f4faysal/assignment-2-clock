@@ -6,11 +6,13 @@ export default function App() {
       style={styles.container}
       source={require("./assets/bacground.png")}
     >
-      <Text style={{
-        fontSize : 22,
-        color : "white"
-      }}>
-      hihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihi
+      <Text
+        style={{
+          fontSize: 22,
+          color: "white",
+        }}
+      >
+        Faysal
       </Text>
     </ImageBackground>
   );
