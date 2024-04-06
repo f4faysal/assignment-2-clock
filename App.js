@@ -17,6 +17,12 @@ import {
 import { useState } from "react";
 
 const RowView = ({ label, value }) => {
+  const colorScheme = useColorScheme();
+  const themeTextStyle =
+    colorScheme === "light" ? styles.lightThemeText : styles.darkThemeText;
+  const themeContainerStyle =
+    colorScheme === "light" ? styles.lightContainer : styles.darkContainer;
+
   return (
     <View
       style={{
@@ -28,13 +34,15 @@ const RowView = ({ label, value }) => {
     >
       <View>
         <Text
-          style={{
-            fontFamily: "Inter-regular",
-            color: "#303030",
-            fontSize: 10,
-            letterSpacing: 2,
-            textTransform: "uppercase",
-          }}
+          style={[
+            {
+              fontFamily: "Inter-regular",
+              fontSize: 10,
+              letterSpacing: 2,
+              textTransform: "uppercase",
+            },
+            themeTextStyle,
+          ]}
         >
           {label}
         </Text>
@@ -42,11 +50,13 @@ const RowView = ({ label, value }) => {
 
       <View>
         <Text
-          style={{
-            fontFamily: "Inter-bold",
-            fontSize: 20,
-            color: "#303030",
-          }}
+          style={[
+            {
+              fontFamily: "Inter-bold",
+              fontSize: 20,
+            },
+            themeTextStyle,
+          ]}
         >
           {value}
         </Text>
@@ -57,9 +67,6 @@ const RowView = ({ label, value }) => {
 
 export default function App() {
   const colorScheme = useColorScheme();
-
-  console.log(colorScheme);
-
   const themeTextStyle =
     colorScheme === "light" ? styles.lightThemeText : styles.darkThemeText;
   const themeContainerStyle =
@@ -207,7 +214,7 @@ export default function App() {
 
                   letterSpacing: 3,
                 },
-               themeTextStyle
+                themeTextStyle,
               ]}
             >
               {showMore ? "LESS" : "MORE"}
@@ -223,6 +230,25 @@ export default function App() {
           </Pressable>
         </View>
       </View>
+
+      {/* EXPANDED VIEW */}
+      {showMore && (
+        <View
+          style={[
+            {
+              opacity: 0.8,
+              paddingVertical: 48,
+              paddingHorizontal: 26,
+            },
+            themeContainerStyle,
+          ]}
+        >
+          <RowView label={"Current Timezone"} value="Europe/London" />
+          <RowView label={"Day of the year"} value="295" />
+          <RowView label={"Day of the week"} value="5" />
+          <RowView label={"Week number"} value="42" />
+        </View>
+      )}
     </ImageBackground>
   );
 }
