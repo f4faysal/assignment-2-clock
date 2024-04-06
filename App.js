@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   ActivityIndicator,
   Image,
@@ -14,15 +15,8 @@ import {
   Inter_700Bold,
   useFonts,
 } from "@expo-google-fonts/inter";
-import { useState } from "react";
 
-const RowView = ({ label, value }) => {
-  const colorScheme = useColorScheme();
-  const themeTextStyle =
-    colorScheme === "light" ? styles.lightThemeText : styles.darkThemeText;
-  const themeContainerStyle =
-    colorScheme === "light" ? styles.lightContainer : styles.darkContainer;
-
+const RowView = ({ label, value, themeTextStyle }) => {
   return (
     <View
       style={{
@@ -67,27 +61,35 @@ const RowView = ({ label, value }) => {
 
 export default function App() {
   const colorScheme = useColorScheme();
+
+  const [themeMode, setThemeMode] = useState(colorScheme);
+  const toggleTheme = () => {
+    setThemeMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+  };
+
   const themeTextStyle =
-    colorScheme === "light" ? styles.lightThemeText : styles.darkThemeText;
+    themeMode === "light" ? styles.lightThemeText : styles.darkThemeText;
   const themeContainerStyle =
-    colorScheme === "light" ? styles.lightContainer : styles.darkContainer;
+    themeMode === "light" ? styles.lightContainer : styles.darkContainer;
 
   let [fontsLoaded] = useFonts({
     "Inter-regular": Inter_400Regular,
     "Inter-bold": Inter_700Bold,
   });
+
   const [showMore, setShowMore] = useState(false);
+
   if (!fontsLoaded) {
-    // return <AppLoading />;
     return <ActivityIndicator />;
   }
+
   return (
     <ImageBackground
       style={[styles.container]}
       source={
-        colorScheme === "dark"
-          ? `${require("./assets/background.png")}`
-          : `${require("./assets/background.png")}`
+        themeMode === "dark"
+          ? require("./assets/background.png")
+          : require("./assets/background.png")
       }
     >
       <View
@@ -129,7 +131,16 @@ export default function App() {
                 - Ada Lovelace
               </Text>
             </View>
-            <Image style={{}} source={require("./assets/refresh.png")} />
+            <Pressable onPress={toggleTheme}>
+              <Image
+                style={{}}
+                source={
+                  themeMode === "dark"
+                    ? require("./assets/sun.png")
+                    : require("./assets/moon.png")
+                }
+              />
+            </Pressable>
           </View>
         )}
         {/* Lower Portion edit */}
@@ -140,7 +151,13 @@ export default function App() {
         >
           {/* Good Evening */}
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Image source={require("./assets/moon.png")} />
+            <Image
+              source={
+                themeMode === "dark"
+                  ? require("./assets/moon.png")
+                  : require("./assets/sun.png")
+              }
+            />
             <Text
               style={[
                 {
@@ -152,7 +169,7 @@ export default function App() {
                 themeTextStyle,
               ]}
             >
-              Good Evening
+              Good {themeMode === "dark" ? "Evening" : "Morning"}
             </Text>
           </View>
           {/* Time */}
@@ -166,7 +183,7 @@ export default function App() {
                 themeTextStyle,
               ]}
             >
-              23:14
+              {themeMode === "dark" ? "23:14" : "6:00"}
               <Text style={{ fontSize: 30, fontFamily: "Inter-regular" }}>
                 BST
               </Text>
@@ -245,10 +262,26 @@ export default function App() {
             themeContainerStyle,
           ]}
         >
-          <RowView label={"Current Timezone"} value="Europe/London" />
-          <RowView label={"Day of the year"} value="295" />
-          <RowView label={"Day of the week"} value="5" />
-          <RowView label={"Week number"} value="42" />
+          <RowView
+            label={"Current Timezone"}
+            value="Europe/London"
+            themeTextStyle={themeTextStyle}
+          />
+          <RowView
+            label={"Day of the year"}
+            value="295"
+            themeTextStyle={themeTextStyle}
+          />
+          <RowView
+            label={"Day of the week"}
+            value="5"
+            themeTextStyle={themeTextStyle}
+          />
+          <RowView
+            label={"Week number"}
+            value="42"
+            themeTextStyle={themeTextStyle}
+          />
         </View>
       )}
     </ImageBackground>
