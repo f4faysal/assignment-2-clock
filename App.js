@@ -99,37 +99,39 @@ export default function App() {
         }}
       >
         {/* Upper Portion */}
-        <View style={{ flexDirection: "row" }}>
-          <View style={{ flex: 1 }}>
-            <Text
-              style={[
-                {
-                  fontFamily: "Inter-regular",
-                  fontSize: 12,
-                },
-                themeTextStyle,
-              ]}
-            >
-              The science of operations, as derived from mathematics more
-              especially, is a science of itself, and has its own abstract truth
-              and value.
-            </Text>
-            <Text
-              style={[
-                {
-                  fontFamily: "Inter-bold",
-                  color: "#fff",
-                  fontSize: 12,
-                  marginTop: 8,
-                },
-                themeTextStyle,
-              ]}
-            >
-              - Ada Lovelace
-            </Text>
+        {!showMore && (
+          <View style={{ flexDirection: "row" }}>
+            <View style={{ flex: 1 }}>
+              <Text
+                style={[
+                  {
+                    fontFamily: "Inter-regular",
+                    fontSize: 12,
+                  },
+                  themeTextStyle,
+                ]}
+              >
+                The science of operations, as derived from mathematics more
+                especially, is a science of itself, and has its own abstract
+                truth and value.
+              </Text>
+              <Text
+                style={[
+                  {
+                    fontFamily: "Inter-bold",
+                    color: "#fff",
+                    fontSize: 12,
+                    marginTop: 8,
+                  },
+                  themeTextStyle,
+                ]}
+              >
+                - Ada Lovelace
+              </Text>
+            </View>
+            <Image style={{}} source={require("./assets/refresh.png")} />
           </View>
-          <Image style={{}} source={require("./assets/refresh.png")} />
-        </View>
+        )}
         {/* Lower Portion edit */}
         <View
           style={{
