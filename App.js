@@ -1,9 +1,12 @@
 import {
   ActivityIndicator,
+  Image,
   ImageBackground,
+  Pressable,
   StyleSheet,
   Text,
-  View
+  View,
+  useColorScheme,
 } from "react-native";
 
 import {
@@ -53,6 +56,15 @@ const RowView = ({ label, value }) => {
 };
 
 export default function App() {
+  const colorScheme = useColorScheme();
+
+  console.log(colorScheme);
+
+  const themeTextStyle =
+    colorScheme === "light" ? styles.lightThemeText : styles.darkThemeText;
+  const themeContainerStyle =
+    colorScheme === "light" ? styles.lightContainer : styles.darkContainer;
+
   let [fontsLoaded] = useFonts({
     "Inter-regular": Inter_400Regular,
     "Inter-bold": Inter_700Bold,
@@ -64,23 +76,153 @@ export default function App() {
   }
   return (
     <ImageBackground
-      style={styles.container}
-      source={require("./assets/background.png")} // Corrected typo here
+      style={[styles.container]}
+      source={
+        colorScheme === "dark"
+          ? `${require("./assets/background.png")}`
+          : `${require("./assets/background.png")}`
+      }
     >
-      <Text style={{
-        fontSize : 25,
-        color :"#fff",
-        fontFamily : "Inter-regular"
-      }}>
-        habiba kutta
-      </Text>
-      <Text style={{
-        fontSize : 25,
-        color :"#fff",
-        fontFamily : "Inter-bold"
-      }}>
-        habiba
-      </Text>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "space-between",
+          paddingHorizontal: 26,
+          marginTop: 35,
+        }}
+      >
+        {/* Upper Portion */}
+        <View style={{ flexDirection: "row" }}>
+          <View style={{ flex: 1 }}>
+            <Text
+              style={[
+                {
+                  fontFamily: "Inter-regular",
+                  fontSize: 12,
+                },
+                themeTextStyle,
+              ]}
+            >
+              The science of operations, as derived from mathematics more
+              especially, is a science of itself, and has its own abstract truth
+              and value.
+            </Text>
+            <Text
+              style={[
+                {
+                  fontFamily: "Inter-bold",
+                  color: "#fff",
+                  fontSize: 12,
+                  marginTop: 8,
+                },
+                themeTextStyle,
+              ]}
+            >
+              - Ada Lovelace
+            </Text>
+          </View>
+          <Image style={{}} source={require("./assets/refresh.png")} />
+        </View>
+        {/* Lower Portion edit */}
+        <View
+          style={{
+            marginBottom: 32,
+          }}
+        >
+          {/* Good Evening */}
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Image source={require("./assets/moon.png")} />
+            <Text
+              style={[
+                {
+                  fontSize: 15,
+                  fontFamily: "Inter-bold",
+                  marginLeft: 8,
+                  letterSpacing: 3,
+                },
+                themeTextStyle,
+              ]}
+            >
+              Good Evening
+            </Text>
+          </View>
+          {/* Time */}
+          <View style={{ marginTop: 8 }}>
+            <Text
+              style={[
+                {
+                  fontSize: 100,
+                  fontFamily: "Inter-bold",
+                },
+                themeTextStyle,
+              ]}
+            >
+              23:14
+              <Text style={{ fontSize: 30, fontFamily: "Inter-regular" }}>
+                BST
+              </Text>
+            </Text>
+          </View>
+          {/* Location */}
+          <View style={{ marginTop: 16 }}>
+            <Text
+              style={[
+                {
+                  fontFamily: "Inter-bold",
+                  fontSize: 15,
+
+                  letterSpacing: 3,
+                },
+                themeTextStyle,
+              ]}
+            >
+              IN LONDON, UK
+            </Text>
+          </View>
+          <Pressable
+            onPress={() => {
+              setShowMore(!showMore);
+            }}
+            style={[
+              {
+                flexDirection: "row",
+                height: 40,
+                width: 115,
+
+                borderRadius: 30,
+                marginTop: 50,
+                justifyContent: "space-between",
+                paddingLeft: 16,
+                paddingRight: 4,
+                alignItems: "center",
+              },
+              themeContainerStyle,
+            ]}
+          >
+            <Text
+              style={[
+                {
+                  fontFamily: "Inter-bold",
+                  fontSize: 12,
+
+                  letterSpacing: 3,
+                },
+               themeTextStyle
+              ]}
+            >
+              {showMore ? "LESS" : "MORE"}
+            </Text>
+
+            <Image
+              source={
+                showMore
+                  ? require("./assets/arrow-up.png")
+                  : require("./assets/arrow-down.png")
+              }
+            />
+          </Pressable>
+        </View>
+      </View>
     </ImageBackground>
   );
 }
@@ -88,7 +230,20 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent : "center",
-    alignItems : "center"
+  },
+  text: {
+    fontSize: 20,
+  },
+  lightContainer: {
+    backgroundColor: "#fff",
+  },
+  darkContainer: {
+    backgroundColor: "#242c40",
+  },
+  lightThemeText: {
+    color: "#242c40",
+  },
+  darkThemeText: {
+    color: "#fff",
   },
 });
