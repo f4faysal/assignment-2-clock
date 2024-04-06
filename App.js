@@ -6,6 +6,7 @@ import {
   Pressable,
   StyleSheet,
   Text,
+  ToastAndroid,
   View,
   useColorScheme,
 } from "react-native";
@@ -67,6 +68,10 @@ export default function App() {
     setThemeMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
   };
 
+  function showToast() {
+    ToastAndroid.show("Refresh successfully!", ToastAndroid.SHORT);
+  }
+
   const themeTextStyle =
     themeMode === "light" ? styles.lightThemeText : styles.darkThemeText;
   const themeContainerStyle =
@@ -89,7 +94,7 @@ export default function App() {
       source={
         themeMode === "dark"
           ? require("./assets/background.png")
-          : require("./assets/background.png")
+          : require("./assets/light-bg.png")
       }
     >
       <View
@@ -122,24 +127,17 @@ export default function App() {
                   {
                     fontFamily: "Inter-bold",
                     color: "#fff",
-                    fontSize: 12,
+                    fontSize: 15,
                     marginTop: 8,
                   },
                   themeTextStyle,
                 ]}
               >
-                - Ada Lovelace
+                Ada Lovelace
               </Text>
             </View>
-            <Pressable onPress={toggleTheme}>
-              <Image
-                style={{}}
-                source={
-                  themeMode === "dark"
-                    ? require("./assets/sun.png")
-                    : require("./assets/moon.png")
-                }
-              />
+            <Pressable onPress={showToast}>
+              <Image source={require("./assets/refresh.png")} />
             </Pressable>
           </View>
         )}
@@ -196,7 +194,6 @@ export default function App() {
                 {
                   fontFamily: "Inter-bold",
                   fontSize: 15,
-
                   letterSpacing: 3,
                 },
                 themeTextStyle,
@@ -205,48 +202,79 @@ export default function App() {
               IN LONDON, UK
             </Text>
           </View>
-          <Pressable
-            onPress={() => {
-              setShowMore(!showMore);
+
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              alignContent: "center",
+              justifyContent: "space-between",
             }}
-            style={[
-              {
+          >
+            <Pressable
+              onPress={() => {
+                setShowMore(!showMore);
+              }}
+              style={[
+                {
+                  flexDirection: "row",
+                  height: 40,
+                  width: 115,
+                  borderRadius: 30,
+                  marginTop: 50,
+                  justifyContent: "space-between",
+                  paddingLeft: 16,
+                  paddingRight: 4,
+                  alignItems: "center",
+                },
+                themeContainerStyle,
+              ]}
+            >
+              <Text
+                style={[
+                  {
+                    fontFamily: "Inter-bold",
+                    fontSize: 12,
+
+                    letterSpacing: 3,
+                  },
+                  themeTextStyle,
+                ]}
+              >
+                {showMore ? "LESS" : "MORE"}
+              </Text>
+
+              <Image
+                source={
+                  showMore
+                    ? require("./assets/arrow-up.png")
+                    : require("./assets/arrow-down.png")
+                }
+              />
+            </Pressable>
+
+            <Pressable
+              style={{
                 flexDirection: "row",
                 height: 40,
-                width: 115,
-
-                borderRadius: 30,
+                width: 50,
                 marginTop: 50,
-                justifyContent: "space-between",
                 paddingLeft: 16,
                 paddingRight: 4,
                 alignItems: "center",
-              },
-              themeContainerStyle,
-            ]}
-          >
-            <Text
-              style={[
-                {
-                  fontFamily: "Inter-bold",
-                  fontSize: 12,
-
-                  letterSpacing: 3,
-                },
-                themeTextStyle,
-              ]}
+              }}
+              onPress={toggleTheme}
             >
-              {showMore ? "LESS" : "MORE"}
-            </Text>
-
-            <Image
-              source={
-                showMore
-                  ? require("./assets/arrow-up.png")
-                  : require("./assets/arrow-down.png")
-              }
-            />
-          </Pressable>
+              <Image
+                style={{}}
+                source={
+                  themeMode === "dark"
+                    ? require("./assets/sun.png")
+                    : require("./assets/moon.png")
+                }
+              />
+            </Pressable>
+          </View>
         </View>
       </View>
 
@@ -296,13 +324,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   lightContainer: {
-    backgroundColor: "#fff",
+    backgroundColor: "#242c40",
   },
   darkContainer: {
     backgroundColor: "#242c40",
   },
   lightThemeText: {
-    color: "#242c40",
+    color: "#fff",
   },
   darkThemeText: {
     color: "#fff",
